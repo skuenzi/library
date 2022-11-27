@@ -1,0 +1,14 @@
+import { Card } from "semantic-ui-react";
+
+const BookCard = (props) => {
+  return (
+    <Card
+      image={props.image}
+      header={props.title}
+      meta={`by ${props.authors}`}
+      description={`${props.description.substring(0, props.description.lastIndexOf(' ', 100))}...`}
+    />
+  );
+};
+
+export default BookCard;
