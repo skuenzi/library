@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-import { Card, Container, Header } from "semantic-ui-react";
+import {
+  Card,
+  Container,
+  Form,
+  Header,
+} from "semantic-ui-react";
 import BookCard from "./BookCard";
 
-const BookList = () => {
+const BookList = (props) => {
   const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([]);
-  const url =
-    "https://www.googleapis.com/books/v1/volumes?q=+subject:fiction&orderBy=newest&key=AIzaSyCxrOmawhlEXmACL87Lm_tlZCWhgpYqST4";
+  const [searchInput, setSearchInput] = useState("fiction");
+  const [search, setSearch] = useState("");
+  const url = `https://www.googleapis.com/books/v1/volumes?q=+subject:${searchInput}&maxResults=20&orderBy=newest&key=AIzaSyCxrOmawhlEXmACL87Lm_tlZCWhgpYqST4`;
 
   useEffect(() => {
     setLoading(true);
@@ -26,17 +32,41 @@ const BookList = () => {
       );
     };
     getBooks();
-    console.log(books);
     setLoading(false);
-  }, []);
+  }, [searchInput, url]);
+
+  const handleSubmit = (e) => {
+    setSearchInput(search)
+    setSearch('')
+  };
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  };
 
   return (
-    <Container fluid>
+    <Container>
       <Header size="large" textAlign="center">
-        Recommended Reading
+        {props.header}
       </Header>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Input
+            type="text"
+            placeholder="Search for a subject"
+            name="search"
+            value={search}
+            onChange={handleChange}
+          />
+          <Form.Button content="Search"  />
+        </Form.Group>
+      </Form>
       {loading && <div>Loading...</div>}
-      {!loading && <Card.Group centered>{books}</Card.Group>}
+      {!loading && (
+        <Card.Group centered itemsPerRow={props.itemsPerRow}>
+          {books}
+        </Card.Group>
+      )}
     </Container>
   );
 };
