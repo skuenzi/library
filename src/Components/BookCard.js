@@ -7,8 +7,16 @@ const BookCard = (props) => {
       image={props.image}
       header={props.title}
       meta={`by ${props.authors}`}
-      description={`${props.description.substring(0, props.description.lastIndexOf(' ', 100))}...`}
-      extra={<AddBookButton/>}
+      description={`${props.description.substring(
+        0,
+        props.description.lastIndexOf(" ", 100)
+      )}...`}
+      extra={
+        <AddBookButton
+          addBook={props.addBookToCollection}
+          currentCollection={props.currentCollection}
+        />
+      }
     />
   );
 };

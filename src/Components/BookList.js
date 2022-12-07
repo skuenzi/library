@@ -34,6 +34,7 @@ const BookList = (props) => {
     getBooks();
     setLoading(false);
   }, [searchInput, url]);
+  console.log(books)
 
   const handleSubmit = (e) => {
     setSearchInput(search)

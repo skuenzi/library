@@ -1,17 +1,19 @@
-import Collection from "../Components/Collection"
-import CreateCollection from "../Components/CreateCollection"
-import NavBar from "../Components/NavBar"
+import Collection from "../Components/Collection";
+import CreateCollection from "../Components/CreateCollection";
+import NavBar from "../Components/NavBar";
 
-const Collections = () => {
+const Collections = (props) => {
+  return (
+    <>
+      <NavBar />
+      {props.collections.map((collection) => (
+        <Collection title={collection.title} />
+      ))}
+      <CreateCollection />
 
-    return (
-        <>
-            <NavBar />
-            <CreateCollection />
+      <Collection />
+    </>
+  );
+};
 
-        <Collection/>
-        </>
-    )
-}
-
-export default Collections
+export default Collections;
