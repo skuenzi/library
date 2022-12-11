@@ -7,7 +7,10 @@ const Collections = (props) => {
     <>
       <NavBar />
       {props.collections.map((collection) => (
-        <Collection title={collection.title} />
+        <Collection
+          title={collection.title}
+          books={collection.books}
+        />
       ))}
       <CreateCollection />
 

@@ -1,14 +1,29 @@
-import { Header } from "semantic-ui-react"
-
+import { Card, Container, Header } from "semantic-ui-react";
+import BookCard from "./BookCard";
+import { nanoid } from "nanoid";
 
 const Collection = (props) => {
+  console.log(props);
+  console.log(props.title, props.books);
 
+  return (
+    <Container>
+      <Header>{props.title}</Header>
+      <Card.Group itemsPerRow={5}>
 
-    return (
-        <>
-        <Header>{props.title}</Header>
-        </>
-    )
-}
+      {props.books && 
+        props.books.map((book) => (
+          <BookCard
+            key={nanoid()}
+            image={book.image}
+            title={book.title}
+            authors={book.authors}
+            description={book.description}
+          />
+        ))}
+      </Card.Group>
+    </Container>
+  );
+};
 
-export default Collection
+export default Collection;

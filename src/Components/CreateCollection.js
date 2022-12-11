@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Form, Header } from "semantic-ui-react";
+import { Container, Divider, Form, Header } from "semantic-ui-react";
 import BookList from "./BookList";
 
 const CreateCollection = () => {
@@ -14,9 +14,9 @@ const CreateCollection = () => {
   const handleAddBookToCollection = () => {
 
   };
-  console.log(newCollection);
   return (
     <Container>
+      <Divider />
       <Header as="h3" content="New Collection" />
       <Form>
         <Form.Group inline>

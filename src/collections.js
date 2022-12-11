@@ -64,7 +64,7 @@ const starterCollections = [
         title: "City of Heavenly Fire",
       },
     ],
-  },
+  }
 ];
 
 

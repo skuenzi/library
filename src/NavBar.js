@@ -10,11 +10,18 @@ const NavBar = () => {
         style={{ fontSize: "2rem" }}
         widths="six"
         as={Link}
-        link
         to="/"
       />
-      <Menu.Item link name="My Collections" as={Link} to="collections" />
-      <Menu.Item link name="Currently Reading" as={Link} to='currentlyreading'/>
+      <Link to="../collections">
+        <Menu.Item>
+          My Collections
+        </Menu.Item>
+      </Link>
+      <Link to="../currentlyreading">
+        <Menu.Item >
+          Currently Reading
+        </Menu.Item>
+      </Link>
     </Menu>
   );
 };
