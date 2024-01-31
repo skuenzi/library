@@ -1,7 +1,14 @@
 import { Card } from "semantic-ui-react";
 import AddBookButton from "./AddBookButton";
 
-const BookCard = (props) => {
+interface BookCardProps {
+  image: string;
+  title: string;
+  authors: string;
+  description: string;
+}
+
+const BookCard = (props:BookCardProps) => {
   return (
     <Card
       image={props.image}
@@ -13,8 +20,6 @@ const BookCard = (props) => {
       )}...`}
       extra={
         <AddBookButton
-          addBook={props.addBookToCollection}
-          currentCollection={props.currentCollection}
         />
       }
     />

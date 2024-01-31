@@ -13,8 +13,6 @@ const Collections = (props) => {
         />
       ))}
       <CreateCollection />
-
-      <Collection />
     </>
   );
 };

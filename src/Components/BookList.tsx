@@ -4,10 +4,17 @@ import {
   Container,
   Form,
   Header,
+  SemanticWIDTHS,
 } from "semantic-ui-react";
 import BookCard from "./BookCard";
+import { Book } from "../types";
 
-const BookList = (props) => {
+interface BookListProps {
+  header: string;
+  itemsPerRow: SemanticWIDTHS | undefined;
+}
+
+const BookList = (props:BookListProps) => {
   const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("fiction");
@@ -20,7 +27,7 @@ const BookList = (props) => {
       const res = await fetch(url);
       const data = await res.json();
       setBooks(
-        data.items.map((book) => (
+        data.items.map((book:any) => (
           <BookCard
             key={book.id}
             image={book.volumeInfo.imageLinks.smallThumbnail}
@@ -34,7 +41,6 @@ const BookList = (props) => {
     getBooks();
     setLoading(false);
   }, [searchInput, url]);
-  console.log(books)
 
   const handleSubmit = (e) => {
     setSearchInput(search)
