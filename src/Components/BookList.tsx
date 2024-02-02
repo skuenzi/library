@@ -42,12 +42,12 @@ const BookList = (props:BookListProps) => {
     setLoading(false);
   }, [searchInput, url]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:any) => {
     setSearchInput(search)
     setSearch('')
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     setSearch(e.target.value)
   };
 

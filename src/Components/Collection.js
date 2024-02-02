@@ -3,8 +3,6 @@ import BookCard from "./BookCard";
 import { nanoid } from "nanoid";
 
 const Collection = (props) => {
-  console.log(props);
-  console.log(props.title, props.books);
 
   return (
     <Container>

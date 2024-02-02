@@ -3,5 +3,4 @@ export type Book = {
     description: string;
     image: string;
     authors: Array<string>
-
 }

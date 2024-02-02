@@ -1,12 +1,15 @@
 import Collection from "../Components/Collection";
 import CreateCollection from "../Components/CreateCollection";
 import NavBar from "../Components/NavBar";
+import {  useCollectionsStore } from "../store";
 
 const Collections = (props) => {
+  const collections = useCollectionsStore(store => store.collections)
+  console.log(collections)
   return (
     <>
       <NavBar />
-      {props.collections.map((collection) => (
+      {collections.map((collection) => (
         <Collection
           title={collection.title}
           books={collection.books}
