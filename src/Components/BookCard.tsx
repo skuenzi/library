@@ -2,15 +2,17 @@ import { Card } from "semantic-ui-react";
 import AddBookButton from "./AddBookButton";
 
 interface BookCardProps {
+  key: string;
   image: string;
   title: string;
   authors: string;
   description: string;
 }
 
-const BookCard = (props:BookCardProps) => {
+const BookCard = (props: any) => {
   return (
     <Card
+      id={props.title}
       image={props.image}
       header={props.title}
       meta={`by ${props.authors}`}
@@ -18,10 +20,7 @@ const BookCard = (props:BookCardProps) => {
         0,
         props.description.lastIndexOf(" ", 100)
       )}...`}
-      extra={
-        <AddBookButton
-        />
-      }
+      extra={<AddBookButton key={props.key} />}
     />
   );
 };

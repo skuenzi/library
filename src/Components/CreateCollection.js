@@ -14,7 +14,6 @@ const CreateCollection = () => {
   };
 
   const addCollection = useCollectionsStore(store => store.addCollection)
-  console.log(newCollection)
 
   const handleSubmit = (e) => { 
     const {title, desc} = newCollection
@@ -49,11 +48,11 @@ const CreateCollection = () => {
           <Form.Button>Submit</Form.Button>
         </Form.Group>
       </Form>
-      <BookList
+      {/* <BookList
         itemsPerRow="7"
         header="Add some books to your collection"
         currentCollection={newCollection}
-      />
+      /> */}
     </Container>
   );
 };

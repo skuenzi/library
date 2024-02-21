@@ -1,12 +1,30 @@
-import { Icon, Popup } from "semantic-ui-react"
+import {
+  Button,
+  Icon,
+  List,
+  ListContent,
+  ListItem,
+  Popup,
+} from "semantic-ui-react";
+import { useCollectionsStore } from "../store";
 
-const AddBookButton = () => {
-    return (
-        <Popup trigger={<Icon name='plus'/>} hoverable>
-            Collections
-        </Popup>
-    )
-}
+const AddBookButton = (props: any) => {
+  const collections = useCollectionsStore((store) => store.collections);
+  const addBookToCollection = useCollectionsStore((store) => store.addBookToCollection)
+  return (
+    <Popup trigger={<Icon name="plus" />} hoverable on="click">
+      Collections
+      <List selection>
+        {collections.map((collection) => (
+          <ListItem key={collection.key}>
+            <ListContent>
+              <Button onClick={() => addBookToCollection(collection.key)}>{collection.title}</Button>
+            </ListContent>
+          </ListItem>
+        ))}
+      </List>
+    </Popup>
+  );
+};
 
-
-export default AddBookButton
+export default AddBookButton;

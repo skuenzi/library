@@ -33,7 +33,7 @@ const BookList = (props:BookListProps) => {
             image={book.volumeInfo.imageLinks.smallThumbnail}
             title={book.volumeInfo.title}
             authors={book.volumeInfo.authors}
-            description={book.volumeInfo.description}
+            description={book.volumeInfo.description || ''}
           />
         ))
       );
@@ -41,7 +41,7 @@ const BookList = (props:BookListProps) => {
     getBooks();
     setLoading(false);
   }, [searchInput, url]);
-
+  
   const handleSubmit = (e:any) => {
     setSearchInput(search)
     setSearch('')
