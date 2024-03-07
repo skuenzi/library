@@ -5,7 +5,6 @@ import NavBar from "../Components/NavBar";
 const CurrentlyReading = () => {
   return (
     <>
-      <NavBar />
       <Container>
 
       <Card fluid>

@@ -15,6 +15,7 @@ const NavBar = () => {
       />
       <Menu.Item link name="My Collections" as={Link} to="/collections" />
       <Menu.Item link name="Currently Reading" as={Link} to='/currentlyreading'/>
+      <Menu.Item><div id='sign-in-div'></div></Menu.Item>
     </Menu>
   );
 };

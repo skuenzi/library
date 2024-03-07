@@ -2,7 +2,6 @@ import { Card } from "semantic-ui-react";
 import AddBookButton from "./AddBookButton";
 
 interface BookCardProps {
-  key: string;
   image: string;
   title: string;
   authors: string;

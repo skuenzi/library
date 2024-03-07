@@ -29,7 +29,7 @@ const BookList = (props:BookListProps) => {
       setBooks(
         data.items.map((book:any) => (
           <BookCard
-            key={book.id}
+            id={book.id}
             image={book.volumeInfo.imageLinks.smallThumbnail}
             title={book.volumeInfo.title}
             authors={book.volumeInfo.authors}
