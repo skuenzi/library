@@ -3,7 +3,7 @@ import Collections from "./Pages/Collections";
 import starterCollections from "./collections";
 import HomePage from "./Pages/HomePage";
 import CurrentlyReading from "./Pages/CurrentlyReading";
-import { Routes, Route, useNavigate, redirect } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavBar from "./Components/NavBar";
 
@@ -11,14 +11,13 @@ function App() {
   const [collections, setCollections] = useState(starterCollections);
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!sessionStorage.getItem("accessToken")) {
       let client = google.accounts.oauth2.initTokenClient({
         client_id:
           "29021350434-mnnd6r0295ciucsbamh5ndrdk3383ls9.apps.googleusercontent.com",
         scope: "https://www.googleapis.com/auth/books",
         callback: (tokenResponse) => {
-          console.log(tokenResponse);
-          localStorage.setItem("accessToken", tokenResponse.access_token);
+          sessionStorage.setItem("accessToken", JSON.stringify(tokenResponse));
         },
       });
       client.requestAccessToken();
@@ -29,7 +28,7 @@ function App() {
     <div className="App">
       <NavBar />
       <Routes>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/collections"
           element={
