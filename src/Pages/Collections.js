@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Card,
   Container,
   Accordion,
   AccordionTitle,
@@ -8,6 +9,7 @@ import {
 } from "semantic-ui-react";
 
 import CreateCollection from "../Components/CreateCollection";
+import BookCard from "../Components/BookCard";
 
 const Collections = (props) => {
   const [collections, setCollections] = useState([]);
@@ -81,11 +83,23 @@ const Collections = (props) => {
               </AccordionTitle>
               <AccordionContent active={activeIndex === collection.id}>
                 {collection.volumes[0] ? (
-                  collection.volumes[0].map((volume) => (
-                    <p>{volume.volumeInfo.title}</p>
-                  ))
+                  <Card.Group itemsPerRow={6}>
+                    {collection.volumes[0].map((volume) => {
+                      const { authors, description, imageLinks, title } =
+                        volume.volumeInfo;
+
+                      return (
+                        <BookCard
+                          id={title}
+                          image={imageLinks.smallThumbnail}
+                          authors={authors}
+                          description={description}
+                        />
+                      );
+                    })}
+                  </Card.Group>
                 ) : (
-                  <p>Yikes, there's nothing in this collection</p>
+                  <p>There's nothing in this collection yet</p>
                 )}
               </AccordionContent>
             </Accordion>
