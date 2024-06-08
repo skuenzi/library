@@ -1,15 +1,16 @@
-/* eslint-disable no-undef -- for google client library */
+/* eslint-disable no-undef -- for google client*/
 import Collections from "./Pages/Collections";
-import starterCollections from "./collections";
 import HomePage from "./Pages/HomePage";
 import CurrentlyReading from "./Pages/CurrentlyReading";
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import NavBar from "./Components/NavBar";
 
-function App() {
-  const [collections, setCollections] = useState(starterCollections);
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
+
+function App() {
   useEffect(() => {
     if (!sessionStorage.getItem("accessToken")) {
       let client = google.accounts.oauth2.initTokenClient({
@@ -25,22 +26,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/collections"
-          element={
-            <Collections
-              collections={collections}
-              setCollection={setCollections}
-            />
-          }
-        />
-        <Route path="/currentlyreading" element={<CurrentlyReading />} />
-      </Routes>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/collections" element={<Collections />} />
+          <Route path="/currentlyreading" element={<CurrentlyReading />} />
+        </Routes>
+      </div>
+    </QueryClientProvider>
   );
 }
 

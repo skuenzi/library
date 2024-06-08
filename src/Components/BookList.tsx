@@ -7,14 +7,13 @@ import {
   SemanticWIDTHS,
 } from "semantic-ui-react";
 import BookCard from "./BookCard";
-import { Book } from "../types";
 
 interface BookListProps {
   header: string;
   itemsPerRow: SemanticWIDTHS | undefined;
 }
 
-const BookList = (props:BookListProps) => {
+const BookList = (props: BookListProps) => {
   const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([]);
   const [searchInput, setSearchInput] = useState("fiction");
@@ -27,13 +26,13 @@ const BookList = (props:BookListProps) => {
       const res = await fetch(url);
       const data = await res.json();
       setBooks(
-        data.items.map((book:any) => (
+        data.items.map((book: any) => (
           <BookCard
             id={book.id}
             image={book.volumeInfo.imageLinks.smallThumbnail}
             title={book.volumeInfo.title}
             authors={book.volumeInfo.authors}
-            description={book.volumeInfo.description || ''}
+            description={book.volumeInfo.description || ""}
           />
         ))
       );
@@ -41,14 +40,14 @@ const BookList = (props:BookListProps) => {
     getBooks();
     setLoading(false);
   }, [searchInput, url]);
-  
-  const handleSubmit = (e:any) => {
-    setSearchInput(search)
-    setSearch('')
+
+  const handleSubmit = (e: any) => {
+    setSearchInput(search);
+    setSearch("");
   };
 
-  const handleChange = (e:any) => {
-    setSearch(e.target.value)
+  const handleChange = (e: any) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -65,7 +64,7 @@ const BookList = (props:BookListProps) => {
             value={search}
             onChange={handleChange}
           />
-          <Form.Button content="Search"  />
+          <Form.Button content="Search" />
         </Form.Group>
       </Form>
       {loading && <div>Loading...</div>}
