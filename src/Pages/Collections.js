@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
-  Card,
   Container,
   Accordion,
   AccordionTitle,
@@ -9,70 +8,32 @@ import {
 } from "semantic-ui-react";
 
 import CreateCollection from "../Components/CreateCollection";
-import BookCard from "../Components/BookCard";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAccessToken, fetchApiCollections } from "../Hooks/queries";
+import VolumeList from "../Components/VolumeList";
 
 const Collections = (props) => {
-  const [collections, setCollections] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const accessToken = JSON.parse(
-    sessionStorage.getItem("accessToken")
-  ).access_token;
+  const accessToken = fetchAccessToken();
+
+  const shelvesResult = useQuery({
+    queryKey: ["getCollections", accessToken],
+    queryFn: () => fetchApiCollections(accessToken),
+  });
+
+  if (shelvesResult.isPending) {
+    return <span>Loading...</span>;
+  }
 
   const onAccordionClick = (shelfId) => {
     setActiveIndex(shelfId);
   };
 
-  useEffect(() => {
-    const getVolumes = async (shelfId) => {
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${shelfId}/volumes`,
-          { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
-        const data = await res.json();
-
-        return data;
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    const getShelves = async () => {
-      try {
-        const res = await fetch(
-          "https://www.googleapis.com/books/v1/mylibrary/bookshelves",
-          { headers: { Authorization: `Bearer ${accessToken}` } }
-        );
-        const data = await res.json();
-        return data;
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getShelves().then((result) => {
-      const shapedCollections = result.items.map((collection) => {
-        const volumes = [];
-        if (collection.volumeCount > 0) {
-          getVolumes(collection.id).then((res) => {
-            volumes.push(res.items);
-          });
-        }
-        return {
-          id: collection.id,
-          title: collection.title,
-          volumeCount: collection.volumeCount,
-          volumes: volumes,
-        };
-      });
-      setCollections(shapedCollections);
-      setActiveIndex(shapedCollections[0].id);
-    });
-  }, [accessToken, collections.length]);
-
   return (
     <Container>
-      {collections.length > 0 &&
-        collections.map((collection) => {
+      {shelvesResult.data.length > 0 &&
+        shelvesResult.data.map((collection) => {
           return (
             <Accordion key={collection.id} as={Menu} vertical fluid styled>
               <AccordionTitle
@@ -82,22 +43,11 @@ const Collections = (props) => {
                 {collection.title}
               </AccordionTitle>
               <AccordionContent active={activeIndex === collection.id}>
-                {collection.volumes[0] ? (
-                  <Card.Group itemsPerRow={6}>
-                    {collection.volumes[0].map((volume) => {
-                      const { authors, description, imageLinks, title } =
-                        volume.volumeInfo;
-
-                      return (
-                        <BookCard
-                          id={title}
-                          image={imageLinks.smallThumbnail}
-                          authors={authors}
-                          description={description}
-                        />
-                      );
-                    })}
-                  </Card.Group>
+                {collection.volumeCount > 0 ? (
+                  <VolumeList
+                    shelfId={collection.id}
+                    accessToken={accessToken}
+                  />
                 ) : (
                   <p>There's nothing in this collection yet</p>
                 )}

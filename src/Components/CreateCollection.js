@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Container, Divider, Form, Header } from "semantic-ui-react";
 import BookList from "./BookList";
-import { useCollectionsStore } from "../store";
+// import { useCollectionsStore } from "../store";
 import { nanoid } from "nanoid";
 
 const CreateCollection = () => {
@@ -13,17 +14,15 @@ const CreateCollection = () => {
     setNewCollection((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addCollection = useCollectionsStore(store => store.addCollection)
+  // const addCollection = useCollectionsStore((store) => store.addCollection);
 
-  const handleSubmit = (e) => { 
-    const {title, desc} = newCollection
-    addCollection(nanoid(), title, desc) 
+  const handleSubmit = (e) => {
+    const { title, desc } = newCollection;
     setNewCollection({
       title: "",
       desc: "",
-    })
-  }
-
+    });
+  };
 
   return (
     <Container>

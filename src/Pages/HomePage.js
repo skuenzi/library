@@ -1,13 +1,11 @@
-
-import BookList from "../Components/BookList"
-import NavBar from "../Components/NavBar"
+import BookList from "../Components/BookList";
 
 const HomePage = () => {
-    return (
-        <>
-        <BookList header='Recommended Reading' itemsPerRow='5'/>
-        </>
-    )
-}
+  return (
+    <>
+      <BookList header="Recommended Reading" itemsPerRow="5" />
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
